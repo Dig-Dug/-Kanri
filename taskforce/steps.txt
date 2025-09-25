@@ -1,0 +1,63 @@
+npm create vue@latest
+     Project name → taskforge
+
+                Add TypeScript? (👉 yes, since it’s industry standard)
+                Add JSX support? (👉 no, not needed)
+                Add Router? (👉 yes)
+                Add Pinia? (👉 yes)
+                Add Vitest? (👉 yes, good practice)
+                Add ESLint/Prettier? (👉 yes, clean code)
+
+                npm install
+                    run dev
+
+Create .dockerignore
+Create Dockerfile (name it just like that)
+
+test that it works:
+    run docker
+    docker build -t taskforge-frontend .
+    docker run -p 8080:80 taskforge-frontend
+    Check 👉 http://localhost:8080
+
+in powershell:
+        docker build -t taskforge-frontend .
+        docker run -p 8080:80 taskforge-frontend
+
+
+
+🔹 Step 4 — Add README.md
+# TaskForge
+
+TaskForge is a lightweight task dashboard built with **Vue 3**, containerized with **Docker**, and ready for deployment on **Kubernetes**.
+
+## 🚀 Getting Started
+
+### Local Development
+```bash
+npm install
+npm run dev
+App runs at: http://localhost:5173 local test
+App runs at: http://localhost:8080 production
+
+📦 Tech Stack
+
+Vue 3 (Composition API + <script setup>)
+
+Vite
+
+Pinia
+
+Vue Router
+
+Docker
+
+Nginx
+
+🔮 Next Steps
+
+Add backend (Node + SQL)
+
+Deploy on Kubernetes
+
+CI/CD pipeline

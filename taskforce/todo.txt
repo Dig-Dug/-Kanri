@@ -1,0 +1,37 @@
+Step 2 — Backend + Database (with Docker Compose)
+
+Decide on backend framework (Node/Express? Laravel? since you’ve touched it before).
+
+Pick a database (Postgres is clean, MySQL is fine too).
+
+Use Docker Compose to spin up frontend + backend + db together.
+
+Frontend → Vue in Nginx
+
+Backend → Node.js/Express API (or Laravel if you prefer PHP)
+
+Database → MySQL/Postgres
+
+▶ Step 3 — Connect Frontend to Backend
+
+Make a simple API route in backend, like /api/tasks.
+
+Fetch it from Vue frontend with fetch or axios.
+
+Confirm frontend ↔ backend ↔ db works in Docker Compose.
+
+▶ Step 4 — Kubernetes (K8s)
+
+Write manifests for frontend, backend, and db.
+
+Deploy them in a local K8s cluster (Docker Desktop’s K8s or Minikube).
+
+Add Ingress so the frontend can talk to the backend inside the cluster.
+
+▶ Step 5 — Polish & GitHub
+
+Add README instructions for all parts.
+
+Add a screenshot of your UI.
+
+Push repo → makes it nice for portfolio.
