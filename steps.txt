@@ -11,3 +11,12 @@ npm create vue@latest
                 npm install
                     run dev
 
+Create .dockerignore
+Create Dockerfile (name it just like that)
+
+test that it works, open dockerdesktop:
+    docker build -t taskforge-frontend .
+    docker run -p 8080:80 taskforge-frontend
+    Check 👉 http://localhost:8080
+
+
