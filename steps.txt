@@ -1,0 +1,13 @@
+npm create vue@latest
+     Project name → taskforge
+
+                Add TypeScript? (👉 yes, since it’s industry standard)
+                Add JSX support? (👉 no, not needed)
+                Add Router? (👉 yes)
+                Add Pinia? (👉 yes)
+                Add Vitest? (👉 yes, good practice)
+                Add ESLint/Prettier? (👉 yes, clean code)
+
+                npm install
+                    run dev
+
