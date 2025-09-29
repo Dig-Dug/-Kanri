@@ -12,6 +12,21 @@ Backend → Node.js/Express API (or Laravel if you prefer PHP)
 
 Database → MySQL/Postgres
 
+//DONE --------------------------
+
+
+
+
+▶ Step 3 Perfect — then the immediate next move is step 5: start implementing the interactive frontend features:
+
+Enable task creation from Vue, making sure POST requests persist in PostgreSQL.
+
+Add drag & drop between columns with VueUse Motion.
+
+Optionally, start task editing and deleting to make the dashboard fully interactive.
+
+
+
 ▶ Step 3 — Connect Frontend to Backend
 
 Make a simple API route in backend, like /api/tasks.
