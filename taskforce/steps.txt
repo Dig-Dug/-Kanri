@@ -24,6 +24,41 @@ in powershell:
         docker build -t taskforge-frontend .
         docker run -p 8080:80 taskforge-frontend
 
+create folder structure:
+
+        taskforce/
+        ├─ backend/
+        │  ├─ package.json
+        │  ├─ index.js 
+           | Dockerfile
+        └─ docker-compose.yml
+        check in powershell: 
+           docker-compose up --build
+
+    cd backend
+         npm init -y
+         npm install express cors pg
+
+in powershell: 
+        docker exec -it taskforce-db-1 psql -U postgres -d taskforce
+        CREATE TABLE tasks (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL
+        );
+        demo tasks:
+        INSERT INTO tasks (name) VALUES
+        ('Learn Docker'),
+        ('Build Backend API'),
+        ('Connect Vue Frontend'),
+        ('Test with Postman'),
+        ('Celebrate small wins');
+
+    test in postman Get request: http://localhost:3000/api/tasks
+
+DB---create folder db, check sql, 
+     docker-compose should be fixed accordingly
+
+
 
 
 🔹 Step 4 — Add README.md
