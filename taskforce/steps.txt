@@ -58,6 +58,9 @@ in powershell:
 DB---create folder db, check sql, 
      docker-compose should be fixed accordingly
 
+Create -->  src/components/TasksList.vue
+   mount it in --> src/App.vue
+
 
 
 
