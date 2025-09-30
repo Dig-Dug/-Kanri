@@ -9,7 +9,7 @@ app.use(express.json())
 // Postgres connection
 const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost', // use 'db' in Docker Compose
+  host: process.env.DB_HOST || 'db', // <-- use 'db' in Docker Compose
   database: process.env.DB_NAME || 'taskforce',
   password: process.env.DB_PASSWORD || 'postgres',
   port: Number(process.env.DB_PORT) || 5432,
@@ -29,11 +29,7 @@ app.get('/api/tasks', async (req, res) => {
 // POST new task
 app.post('/api/tasks', async (req, res) => {
   const { name } = req.body
-  console.log('POST /api/tasks payload:', req.body)
-
-  if (!name || !name.trim()) {
-    return res.status(400).json({ error: 'Task name is required' })
-  }
+  if (!name || !name.trim()) return res.status(400).json({ error: 'Task name required' })
 
   try {
     const result = await pool.query('INSERT INTO tasks(name) VALUES($1) RETURNING *', [name.trim()])
@@ -41,6 +37,19 @@ app.post('/api/tasks', async (req, res) => {
   } catch (err) {
     console.error('DB insert error:', err)
     res.status(500).json({ error: 'Database insert error' })
+  }
+})
+
+// DELETE task
+app.delete('/api/tasks/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const result = await pool.query('DELETE FROM tasks WHERE id = $1 RETURNING *', [id])
+    if (result.rowCount === 0) return res.status(404).json({ error: 'Task not found' })
+    res.sendStatus(204)
+  } catch (err) {
+    console.error('DB delete error:', err)
+    res.status(500).json({ error: 'Database delete error' })
   }
 })
 

@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
-export default defineConfig({
+/*export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
@@ -17,4 +17,30 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000', // or 'http://backend:3000' in Docker
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+})
+*/
+
+export default defineConfig({
+  plugins: [vue(), vueJsx(), vueDevTools()],
+  resolve: {
+    alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000', // your backend
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '/api') // optional here
+      }
+    }
+  }
 })

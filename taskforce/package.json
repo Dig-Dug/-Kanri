@@ -7,16 +7,18 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "test:unit": "vitest",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build",
-    "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
-    "lint:eslint": "eslint . --fix",
-    "lint": "run-s lint:*",
-    "format": "prettier --write src/"
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+  "dev:frontend": "vite",
+  "dev:backend": "npm run dev --prefix backend",
+  "build": "run-p type-check \"build-only {@}\" --",
+  "preview": "vite preview",
+  "test:unit": "vitest",
+  "build-only": "vite build",
+  "type-check": "vue-tsc --build",
+  "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
+  "lint:eslint": "eslint . --fix",
+  "lint": "run-s lint:*",
+  "format": "prettier --write src/"
   },
   "dependencies": {
     "pinia": "^3.0.3",
@@ -35,6 +37,7 @@
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
+    "concurrently": "^9.2.1",
     "eslint": "^9.31.0",
     "eslint-plugin-oxlint": "~1.8.0",
     "eslint-plugin-vue": "~10.3.0",

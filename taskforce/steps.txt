@@ -14,6 +14,10 @@ npm create vue@latest
 Create .dockerignore
 Create Dockerfile (name it just like that)
 
+run----> cd taskforce:
+         npm run dev 
+run----> cd taskforce/backend: 
+         npm run dev
 test that it works:
     run docker
     docker build -t taskforge-frontend .
