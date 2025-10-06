@@ -1,17 +1,19 @@
-# Use Node 20 Alpine
+# frontend/Dockerfile
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Install dependencies
+# Copy package.json & package-lock.json
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy the source
+# Copy all source files
 COPY . .
 
-# Expose Vite port
+# Expose port used by Vite
 EXPOSE 5173
 
-# Run Vite in host mode so Docker networking works
-CMD ["npm", "run", "dev:frontend", "--", "--host", "0.0.0.0"]
+# Start dev server
+CMD ["npm", "run", "dev"]
