@@ -9,7 +9,7 @@ app.use(express.json())
 // Postgres connection
 const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'db', // <-- use 'db' in Docker Compose
+  host: process.env.DB_HOST || 'localhost', // <-- use 'db' in Docker Compose
   database: process.env.DB_NAME || 'taskforce',
   password: process.env.DB_PASSWORD || 'postgres',
   port: Number(process.env.DB_PORT) || 5432,

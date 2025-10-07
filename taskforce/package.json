@@ -6,20 +6,16 @@
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
-  "scripts": {
-    "dev": "npm run dev:frontend",
-  "dev:frontend": "vite",
+ "scripts": {
+  "dev:frontend": "cd frontend && vite",
   "dev:backend": "npm run dev --prefix backend",
-  "build": "run-p type-check \"build-only {@}\" --",
-  "preview": "vite preview",
-  "test:unit": "vitest",
-  "build-only": "vite build",
-  "type-check": "vue-tsc --build",
-  "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
-  "lint:eslint": "eslint . --fix",
-  "lint": "run-s lint:*",
+  "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+  "build:frontend": "cd frontend && vite build",
+  "preview:frontend": "cd frontend && vite preview",
+  "lint": "eslint . --fix",
   "format": "prettier --write src/"
-  },
+},
+
   "dependencies": {
     "pinia": "^3.0.3",
     "vue": "^3.5.18",
