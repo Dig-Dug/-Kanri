@@ -1,24 +1,30 @@
+// index.js
+require('dotenv').config() // <-- load .env variables first
+
 const express = require('express')
-const cors = require('cors')
 const { Pool } = require('pg')
 
 const app = express()
-app.use(cors())
 app.use(express.json())
 
-// Postgres connection
+// Database pool
 const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost', // <-- use 'db' in Docker Compose
-  database: process.env.DB_NAME || 'taskforce',
-  password: process.env.DB_PASSWORD || 'postgres',
+  host: process.env.DB_HOST || '127.0.0.1', // Docker mapped to localhost
+  database: process.env.DB_NAME || 'tasks',
+  password: process.env.DB_PASSWORD || '1234',
   port: Number(process.env.DB_PORT) || 5432,
 })
 
-// GET tasks
+// Test DB connection
+pool.connect()
+  .then(() => console.log('✅ Connected to Postgres'))
+  .catch(err => console.error('❌ DB connection error:', err))
+
+// Example GET endpoint
 app.get('/api/tasks', async (req, res) => {
   try {
-    const result = await pool.query('SELECT id, name FROM tasks ORDER BY id ASC')
+    const result = await pool.query('SELECT * FROM tasks')
     res.json(result.rows)
   } catch (err) {
     console.error('GET error:', err)
@@ -26,34 +32,20 @@ app.get('/api/tasks', async (req, res) => {
   }
 })
 
-// POST new task
+// Example POST endpoint
 app.post('/api/tasks', async (req, res) => {
-  const { name } = req.body
-  if (!name || !name.trim()) return res.status(400).json({ error: 'Task name required' })
-
+  const { title } = req.body
   try {
-    const result = await pool.query('INSERT INTO tasks(name) VALUES($1) RETURNING *', [name.trim()])
+    const result = await pool.query(
+      'INSERT INTO tasks(title) VALUES($1) RETURNING *',
+      [title]
+    )
     res.status(201).json(result.rows[0])
   } catch (err) {
-    console.error('DB insert error:', err)
+    console.error('POST error:', err)
     res.status(500).json({ error: 'Database insert error' })
   }
 })
 
-// DELETE task
-app.delete('/api/tasks/:id', async (req, res) => {
-  const { id } = req.params
-  try {
-    const result = await pool.query('DELETE FROM tasks WHERE id = $1 RETURNING *', [id])
-    if (result.rowCount === 0) return res.status(404).json({ error: 'Task not found' })
-    res.sendStatus(204)
-  } catch (err) {
-    console.error('DB delete error:', err)
-    res.status(500).json({ error: 'Database delete error' })
-  }
-})
-
 const PORT = process.env.PORT || 3000
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`)
-})
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
