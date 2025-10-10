@@ -12,7 +12,7 @@
 
     <ul>
       <li v-for="t in tasks" :key="t.id">
-        {{ t.name }}
+        {{ t.title }}
         <button @click="deleteTask(t.id)" style="margin-left:0.5rem">Delete</button>
       </li>
     </ul>
@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-interface Task { id: number; name: string }
+interface Task { id: number; title: string }
 
 const tasks = ref<Task[]>([])
 const newTask = ref('')
@@ -46,13 +46,13 @@ async function load() {
 }
 
 async function addTask() {
-  const name = newTask.value.trim()
-  if (!name) return
+  const title = newTask.value.trim()
+  if (!title) return
   try {
     const res = await fetch(`${API_BASE}/tasks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name })
+      body: JSON.stringify({ title })
     })
     if (!res.ok) throw new Error(await res.text())
     const created = await res.json()

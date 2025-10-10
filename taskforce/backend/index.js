@@ -34,6 +34,7 @@ app.get('/api/tasks', async (req, res) => {
 
 // Example POST endpoint
 app.post('/api/tasks', async (req, res) => {
+  console.log('Incoming body:', req.body)
   const { title } = req.body
   try {
     const result = await pool.query(
