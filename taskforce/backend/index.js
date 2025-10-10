@@ -47,6 +47,36 @@ app.post('/api/tasks', async (req, res) => {
     res.status(500).json({ error: 'Database insert error' })
   }
 })
+// DELETE endpoint
+app.delete('/api/tasks/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    await pool.query('DELETE FROM tasks WHERE id = $1', [id])
+    res.status(204).send() // No content
+  } catch (err) {
+    console.error('DELETE error:', err)
+    res.status(500).json({ error: 'Database delete error' })
+  }
+})
+
+// PUT endpoint
+app.put('/api/tasks/:id', async (req, res) => {
+  const { id } = req.params
+  const { title } = req.body
+  try {
+    const result = await pool.query(
+      'UPDATE tasks SET title = $1 WHERE id = $2 RETURNING *',
+      [title, id]
+    )
+    res.json(result.rows[0])
+  } catch (err) {
+    console.error('UPDATE error:', err)
+    res.status(500).json({ error: 'Database update error' })
+  }
+})
+
+
+
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
